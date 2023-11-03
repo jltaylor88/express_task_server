@@ -1,0 +1,5 @@
+# Ignore node_modules
+node_modules
+
+# Ignore .env files as they are usually used to pass sensitive info
+.env*

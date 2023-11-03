@@ -1,0 +1,21 @@
+{
+	"name": "task-manager-redo",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node src/index.js",
+		"dev": "nodemon src/index.js"
+	},
+	"keywords": [],
+	"author": "Jason Taylor",
+	"license": "ISC",
+	"dependencies": {
+		"mongodb": "^6.2.0",
+		"mongoose": "^8.0.0",
+		"validator": "^13.11.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.0.1"
+	}
+}
