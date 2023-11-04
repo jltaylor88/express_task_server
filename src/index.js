@@ -77,7 +77,7 @@ app.patch("/users/:id", async (req, res) => {
 			res.send(result);
 		}
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(400).send(error);
 	}
 });
 
@@ -164,7 +164,7 @@ app.patch("/tasks/:id", async (req, res) => {
 			res.send(result);
 		}
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(400).send(error);
 	}
 });
 
