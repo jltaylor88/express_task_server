@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("./models/user");
+const { ObjectId } = require("mongodb");
 
 require("./db/setup").connectToDB();
 
@@ -45,8 +46,32 @@ app.get("/users", async (_req, res) => {
 });
 
 // The patch route for updating a user by their id
+app.patch("/users/:id", async (req, res) => {
+	// Get the ID parameter from the URL
+	const id = req.params.id;
+	try {
+		const result = await User.findByIdAndUpdate(id, req.body, {
+			new: true,
+			runValidators: true,
+		});
+
+		res.send(result);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+});
 
 // The delete route for deleting a user by their id
+app.delete("/users/:id", async (req, res) => {
+	// Get the ID from the URL
+	const id = req.params.id;
+	try {
+		const result = await User.findByIdAndDelete(id);
+		res.send(result);
+	} catch (error) {
+		res.send(error);
+	}
+});
 
 // Listen for requests on port 3000
 app.listen(3000, () => {
