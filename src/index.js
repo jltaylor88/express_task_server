@@ -47,8 +47,22 @@ app.get("/users", async (_req, res) => {
 	}
 });
 
+const allowedUserUpdates = ["name", "email", "password"];
 // The patch route for updating a user by their id
 app.patch("/users/:id", async (req, res) => {
+	if (!req.body) {
+		return res.status(400).send({ error: "No updates provided" });
+	}
+
+	const updates = Object.keys(req.body);
+	const isValidOperation = updates.every(update =>
+		allowedUserUpdates.includes(update)
+	);
+
+	if (!isValidOperation) {
+		return res.status(400).send({ error: "Invalid updates" });
+	}
+
 	// Get the ID parameter from the URL
 	const id = req.params.id;
 	try {
