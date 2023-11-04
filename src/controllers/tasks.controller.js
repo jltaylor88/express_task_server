@@ -1,8 +1,8 @@
-const Task = require("../models/task");
+const tasksService = require("../services/tasks.service");
 
 const get = async (_req, res) => {
 	try {
-		const result = await Task.find({});
+		const result = await tasksService.get();
 		res.send(result);
 	} catch (error) {
 		res.status(500).send(error);
@@ -13,7 +13,7 @@ const getById = async (req, res) => {
 	// Get the id from the request parameters
 	const id = req.params.id;
 	try {
-		const result = await Task.findById(id);
+		const result = await tasksService.getById(id);
 		if (!result) {
 			res.status(404).send();
 		} else {
@@ -26,8 +26,7 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
 	try {
-		const task = new Task(req.body);
-		const result = await task.save();
+		const result = await tasksService.create(req.body);
 		res.status(201).send(result);
 	} catch (error) {
 		res.status(500).send(error);
@@ -52,10 +51,7 @@ const update = async (req, res) => {
 	// Get the ID from the request parameters
 	const id = req.params.id;
 	try {
-		const result = await Task.findByIdAndUpdate(id, req.body, {
-			new: true,
-			runValidators: true,
-		});
+		const result = await tasksService.updateById(id, req.body);
 		if (!result) {
 			res.status(404).send();
 		} else {
@@ -69,7 +65,7 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
 	const id = req.params.id;
 	try {
-		const result = await Task.findByIdAndDelete(id);
+		const result = await tasksService.removeById(id);
 		if (!result) {
 			res.status(404).send();
 		} else {
