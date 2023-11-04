@@ -57,7 +57,11 @@ app.patch("/users/:id", async (req, res) => {
 			runValidators: true,
 		});
 
-		res.send(result);
+		if (!result) {
+			res.status(404).send();
+		} else {
+			res.send(result);
+		}
 	} catch (error) {
 		res.status(400).send(error);
 	}
@@ -69,7 +73,11 @@ app.delete("/users/:id", async (req, res) => {
 	const id = req.params.id;
 	try {
 		const result = await User.findByIdAndDelete(id);
-		res.send(result);
+		if (!result) {
+			res.status(404).send();
+		} else {
+			res.send(result);
+		}
 	} catch (error) {
 		res.send(error);
 	}
@@ -122,7 +130,11 @@ app.patch("/tasks/:id", async (req, res) => {
 			new: true,
 			runValidators: true,
 		});
-		res.send(result);
+		if (!result) {
+			res.status(404).send();
+		} else {
+			res.send(result);
+		}
 	} catch (error) {
 		res.status(400).send(error);
 	}
@@ -133,7 +145,11 @@ app.delete("/tasks/:id", async (req, res) => {
 	const id = req.params.id;
 	try {
 		const result = await Task.findByIdAndDelete(id);
-		res.send(result);
+		if (!result) {
+			res.status(404).send();
+		} else {
+			res.send(result);
+		}
 	} catch (error) {
 		res.status(400).send(error);
 	}
