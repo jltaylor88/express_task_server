@@ -103,7 +103,11 @@ app.get("/tasks/:id", async (req, res) => {
 	const id = req.params.id;
 	try {
 		const result = await Task.findById(id);
-		res.send(result);
+		if (!result) {
+			res.status(404).send();
+		} else {
+			res.send(result);
+		}
 	} catch (error) {
 		res.status(400).send(error);
 	}
