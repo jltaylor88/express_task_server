@@ -1,9 +1,8 @@
-const User = require("../models/user");
+const usersService = require("../services/users.service");
 
 const get = async (_req, res) => {
-	console.log("HERE");
 	try {
-		const result = await User.find({});
+		const result = await usersService.get();
 		res.send(result);
 	} catch (error) {
 		res.status(500).send(error);
@@ -14,7 +13,7 @@ const getById = async (req, res) => {
 	// Get the id from the request parameters
 	const id = req.params.id;
 	try {
-		const result = await User.findById(id);
+		const result = await usersService.getById(id);
 		if (!result) {
 			return res.status(404).send();
 		} else {
@@ -27,8 +26,7 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
 	try {
-		const user = new User(req.body);
-		const result = await user.save();
+		const result = await usersService.create(req.body);
 		res.status(201).send(result);
 	} catch (error) {
 		res.status(500).send(error);
@@ -53,10 +51,7 @@ const update = async (req, res) => {
 	// Get the ID parameter from the URL
 	const id = req.params.id;
 	try {
-		const result = await User.findByIdAndUpdate(id, req.body, {
-			new: true,
-			runValidators: true,
-		});
+		const result = await usersService.updateById(id, req.body);
 
 		if (!result) {
 			res.status(404).send();
@@ -72,7 +67,7 @@ const remove = async (req, res) => {
 	// Get the ID from the URL
 	const id = req.params.id;
 	try {
-		const result = await User.findByIdAndDelete(id);
+		const result = await usersService.removeById(id);
 		if (!result) {
 			res.status(404).send();
 		} else {
