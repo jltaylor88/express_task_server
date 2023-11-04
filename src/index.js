@@ -124,6 +124,17 @@ app.patch("/tasks/:id", async (req, res) => {
 	}
 });
 
+// The delete route for deleting a task bu its ID
+app.delete("/tasks/:id", async (req, res) => {
+	const id = req.params.id;
+	try {
+		const result = await Task.findByIdAndDelete(id);
+		res.send(result);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+});
+
 // Listen for requests on port 3000
 app.listen(3000, () => {
 	console.log("Server is up on port 3000");
