@@ -135,8 +135,22 @@ app.get("/tasks/:id", async (req, res) => {
 	}
 });
 
+const allowedTaskUpdates = ["description", "completed"];
 // The patch route for updating a task by its id
 app.patch("/tasks/:id", async (req, res) => {
+	if (!req.body) {
+		return res.status(400).send({ error: "No updates provided" });
+	}
+
+	const updates = Object.keys(req.body);
+	const isValidOperation = updates.every(update =>
+		allowedTaskUpdates.includes(update)
+	);
+
+	if (!isValidOperation) {
+		return res.status(400).send({ error: "Invalid updates" });
+	}
+
 	// Get the ID from the request parameters
 	const id = req.params.id;
 	try {
