@@ -87,6 +87,16 @@ app.post("/tasks", async (req, res) => {
 	}
 });
 
+// The get route for retrieving all tasks
+app.get("/tasks", async (_req, res) => {
+	try {
+		const result = await Task.find({});
+		res.send(result);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+});
+
 // Listen for requests on port 3000
 app.listen(3000, () => {
 	console.log("Server is up on port 3000");
