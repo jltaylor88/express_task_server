@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("./models/user");
-const { ObjectId } = require("mongodb");
+const Task = require("./models/task");
 
 require("./db/setup").connectToDB();
 
@@ -8,6 +8,8 @@ require("./db/setup").connectToDB();
 const app = express();
 app.use(express.json());
 
+// TODO: Refactor to more organised file structure
+// USERS
 // The post route for creating a new user
 app.post("/users", async (req, res) => {
 	try {
@@ -70,6 +72,18 @@ app.delete("/users/:id", async (req, res) => {
 		res.send(result);
 	} catch (error) {
 		res.send(error);
+	}
+});
+
+// TASKS
+// The post route for creating a new task
+app.post("/tasks", async (req, res) => {
+	try {
+		const task = new Task(req.body);
+		const result = await task.save();
+		res.status(201).send(result);
+	} catch (error) {
+		res.status(400).send(error);
 	}
 });
 
