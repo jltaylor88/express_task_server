@@ -33,7 +33,7 @@ app.get("/users/:id", async (req, res) => {
 			res.send(result);
 		}
 	} catch (error) {
-		res.status(400).send(error);
+		res.status(500).send(error);
 	}
 });
 
@@ -43,7 +43,7 @@ app.get("/users", async (_req, res) => {
 		const result = await User.find({});
 		res.send(result);
 	} catch (error) {
-		res.status(400).send(error);
+		res.status(500).send(error);
 	}
 });
 
@@ -77,7 +77,7 @@ app.patch("/users/:id", async (req, res) => {
 			res.send(result);
 		}
 	} catch (error) {
-		res.status(400).send(error);
+		res.status(500).send(error);
 	}
 });
 
@@ -93,7 +93,7 @@ app.delete("/users/:id", async (req, res) => {
 			res.send(result);
 		}
 	} catch (error) {
-		res.send(error);
+		res.status(500).send(error);
 	}
 });
 
@@ -115,7 +115,7 @@ app.get("/tasks", async (_req, res) => {
 		const result = await Task.find({});
 		res.send(result);
 	} catch (error) {
-		res.status(400).send(error);
+		res.status(500).send(error);
 	}
 });
 
@@ -131,7 +131,7 @@ app.get("/tasks/:id", async (req, res) => {
 			res.send(result);
 		}
 	} catch (error) {
-		res.status(400).send(error);
+		res.status(500).send(error);
 	}
 });
 
@@ -164,7 +164,7 @@ app.patch("/tasks/:id", async (req, res) => {
 			res.send(result);
 		}
 	} catch (error) {
-		res.status(400).send(error);
+		res.status(500).send(error);
 	}
 });
 
@@ -179,7 +179,7 @@ app.delete("/tasks/:id", async (req, res) => {
 			res.send(result);
 		}
 	} catch (error) {
-		res.status(400).send(error);
+		res.status(500).send(error);
 	}
 });
 
