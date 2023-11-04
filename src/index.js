@@ -97,6 +97,33 @@ app.get("/tasks", async (_req, res) => {
 	}
 });
 
+// The get route for retrieving a single task by its id
+app.get("/tasks/:id", async (req, res) => {
+	// Get the id from the request parameters
+	const id = req.params.id;
+	try {
+		const result = await Task.findById(id);
+		res.send(result);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+});
+
+// The patch route for updating a task by its id
+app.patch("/tasks/:id", async (req, res) => {
+	// Get the ID from the request parameters
+	const id = req.params.id;
+	try {
+		const result = await Task.findByIdAndUpdate(id, req.body, {
+			new: true,
+			runValidators: true,
+		});
+		res.send(result);
+	} catch (error) {
+		res.status(400).send(error);
+	}
+});
+
 // Listen for requests on port 3000
 app.listen(3000, () => {
 	console.log("Server is up on port 3000");
